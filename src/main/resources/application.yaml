@@ -13,3 +13,8 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
+
+ngrok:
+  enabled: true
+  authToken: ${NGROK_AUTH_TOKEN}
+  command: http 8080 --domain=wallaby-capital-hideously.ngrok-free.app
