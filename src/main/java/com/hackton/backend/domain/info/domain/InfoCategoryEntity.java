@@ -2,6 +2,7 @@ package com.hackton.backend.domain.info.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,4 +16,9 @@ public class InfoCategoryEntity {
 
     @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String name;
+
+    @Builder
+    public InfoCategoryEntity(String name) {
+        this.name = name;
+    }
 }

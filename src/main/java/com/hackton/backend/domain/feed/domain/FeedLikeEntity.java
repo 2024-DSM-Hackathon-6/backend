@@ -4,6 +4,7 @@ import com.hackton.backend.domain.info.domain.InfoCategoryEntity;
 import com.hackton.backend.domain.user.domain.UserEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
@@ -23,4 +24,10 @@ public class FeedLikeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
+
+    @Builder
+    public FeedLikeEntity(FeedEntity feed, UserEntity user) {
+        this.feed = feed;
+        this.user = user;
+    }
 }

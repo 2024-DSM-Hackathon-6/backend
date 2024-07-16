@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,4 +39,13 @@ public class FeedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
+    
+    @Builder
+    public FeedEntity(String accountId, String password, LocalDateTime createDate, Long likeCount, UserEntity user) {
+        this.accountId = accountId;
+        this.password = password;
+        this.createDate = createDate;
+        this.likeCount = likeCount;
+        this.user = user;
+    }
 }

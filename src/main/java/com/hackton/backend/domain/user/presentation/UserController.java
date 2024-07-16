@@ -1,5 +1,6 @@
 package com.hackton.backend.domain.user.presentation;
 
+import com.hackton.backend.domain.user.presentation.dto.request.UserSignInRequest;
 import com.hackton.backend.domain.user.presentation.dto.request.UserSignUpRequest;
 import com.hackton.backend.domain.user.presentation.dto.response.UserIdentifierResponse;
 import com.hackton.backend.domain.user.service.UserService;
@@ -19,5 +20,9 @@ public class UserController {
     @PostMapping("/signup")
     public UserIdentifierResponse signUp(@RequestBody UserSignUpRequest request) {
         return userService.signUp(request);
+    }
+    @RequestMapping("/signin")
+    public UserIdentifierResponse signIn(@RequestBody UserSignInRequest request) {
+        return userService.signIn(request);
     }
 }

@@ -2,6 +2,7 @@ package com.hackton.backend.domain.info.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,4 +23,11 @@ public class InfoEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "info_category_id", nullable = false)
     private InfoCategoryEntity infoCategory;
+
+    @Builder
+    public InfoEntity(String title, String content, InfoCategoryEntity infoCategory) {
+        this.title = title;
+        this.content = content;
+        this.infoCategory = infoCategory;
+    }
 }
