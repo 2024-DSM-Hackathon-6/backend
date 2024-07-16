@@ -25,9 +25,13 @@ public class UserEntity {
     @Column(columnDefinition = "CHAR(60)", nullable = false)
     private String password;
 
+    @Column(columnDefinition = "VARCHAR(10)", nullable = false)
+    private String identifier;
+
     @Builder
-    public UserEntity(String accountId, String password) {
+    public UserEntity(String accountId, String password, String identifier) {
         this.accountId = accountId;
         this.password = password;
+        this.identifier = identifier;
     }
 }
