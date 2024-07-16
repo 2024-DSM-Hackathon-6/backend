@@ -18,8 +18,6 @@ public class RandomStringUtil {
             sb.append(characters.charAt(index));
         }
 
-        String answer = isUpperCase ? sb.toString() : sb.toString().toLowerCase();
-
-        return answer.substring(10);
+        return isUpperCase ? sb.toString() : sb.toString().toLowerCase();
     }
 }
