@@ -26,24 +26,24 @@ public class FeedEntity {
     private Long id;
 
     @Column(columnDefinition = "VARCHAR(30)", nullable = false)
-    private String accountId;
+    private String title;
 
     @Column(columnDefinition = "VARCHAR(3000)", nullable = false)
-    private String password;
+    private String content;
 
     private LocalDateTime createDate = LocalDateTime.now();
 
-    @Column(columnDefinition = "BIGINT DEFAULT 0", nullable = false)
-    private Long likeCount;
+    @Column(columnDefinition = "INT", nullable = false)
+    private Integer likeCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @Builder
-    public FeedEntity(String accountId, String password, LocalDateTime createDate, Long likeCount, UserEntity user) {
-        this.accountId = accountId;
-        this.password = password;
+    public FeedEntity(String title, String content, LocalDateTime createDate, Integer likeCount, UserEntity user) {
+        this.title = title;
+        this.content = content;
         this.createDate = createDate;
         this.likeCount = likeCount;
         this.user = user;
