@@ -7,7 +7,7 @@ import com.hackton.backend.domain.user.presentation.dto.request.UserSignUpReques
 import com.hackton.backend.domain.user.presentation.dto.response.UserIdentifierResponse;
 import com.hackton.backend.global.util.RandomStringUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public UserIdentifierResponse signUp(UserSignUpRequest request) {
         if (userRepository.existsByAccountId(request.getAccountId())) {
