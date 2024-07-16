@@ -2,5 +2,5 @@ package com.hackton.backend.domain.feed.domain;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface FeedLikeEntityRepository extends CrudRepository<FeedLikeEntity, Long> {
+public interface FeedLikeRepository extends CrudRepository<FeedLikeEntity, Long> {
 }
