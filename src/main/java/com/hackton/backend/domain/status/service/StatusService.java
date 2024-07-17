@@ -1,7 +1,7 @@
 package com.hackton.backend.domain.status.service;
 
-import com.hackton.backend.domain.feed.domain.FeedEntity;
-import com.hackton.backend.domain.feed.domain.FeedRepository;
+import com.hackton.backend.domain.info.domain.InfoEntity;
+import com.hackton.backend.domain.info.domain.InfoRepository;
 import com.hackton.backend.domain.status.domain.StatusEntity;
 import com.hackton.backend.domain.status.domain.StatusRepository;
 import com.hackton.backend.domain.status.presentation.dto.request.CreateFixRequest;
@@ -21,11 +21,11 @@ import java.util.List;
 public class StatusService {
 
     private final StatusRepository statusRepository;
-    private final FeedRepository feedRepository;
+    private final InfoRepository infoRepository;
     private final UserRepository userRepository;
 
     public void createInquiry(CreateInquiryRequest request, String userIdentifier) {
-        FeedEntity feed = feedRepository.findById(request.getFeedId())
+        InfoEntity info = infoRepository.findById(request.getInfoId())
                 .orElseThrow(RuntimeException::new);
 
         UserEntity user = userRepository.findByIdentifier(userIdentifier)
@@ -33,7 +33,7 @@ public class StatusService {
 
         statusRepository.save(
                 StatusEntity.builder()
-                        .feed(feed)
+                        .info(info)
                         .user(user)
                         .content(request.getContent())
                         .name("문의")
@@ -42,7 +42,7 @@ public class StatusService {
     }
 
     public void createFixRequest(CreateFixRequest request, String userIdentifier) {
-        FeedEntity feed = feedRepository.findById(request.getFeedId())
+        InfoEntity info = infoRepository.findById(request.getInfoId())
                 .orElseThrow(RuntimeException::new);
 
         UserEntity user = userRepository.findByIdentifier(userIdentifier)
@@ -50,7 +50,7 @@ public class StatusService {
 
         statusRepository.save(
                 StatusEntity.builder()
-                        .feed(feed)
+                        .info(info)
                         .user(user)
                         .content(request.getContent())
                         .name("수정 요청")
@@ -58,11 +58,11 @@ public class StatusService {
         );
     }
 
-    public StatusListResponse getStatusListByFeedIdAndStatus(Long feedId, String status) {
+    public StatusListResponse getStatusListByInfoIdAndStatus(Long infoId, String status) {
         List<StatusEntity> statusEntities = switch (status) {
-            case "INQUIRY" -> statusRepository.findAllByFeedIdAndName(feedId, "문의");
-            case "FIX" -> statusRepository.findAllByFeedIdAndName(feedId, "수정 요청");
-            default -> statusRepository.findAllByFeedId(feedId);
+            case "INQUIRY" -> statusRepository.findAllByInfoIdAndName(infoId, "문의");
+            case "FIX" -> statusRepository.findAllByInfoIdAndName(infoId, "수정 요청");
+            default -> statusRepository.findAllByInfoId(infoId);
         };
 
         List<StatusElement> statusElements = statusEntities.stream()

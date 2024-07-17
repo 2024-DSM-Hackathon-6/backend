@@ -15,5 +15,3 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedHeaders("*");
     }
 }
-
-// cors -> cross origin resource sharing

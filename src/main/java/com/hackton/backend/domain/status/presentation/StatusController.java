@@ -35,16 +35,16 @@ public class StatusController {
         statusService.createFixRequest(request, identifier);
     }
 
-    @Operation(summary = "웹용 게시글 관련 문의, 수정 요청 리스트 조회")
-    @GetMapping("/list/{feed-id}")
-    public StatusListResponse getStatusListByFeedIdAndStatus(
-            @PathVariable("feed-id") Long feedId,
+    @Operation(summary = "웹용 정보 글 관련 문의, 수정 요청 리스트 조회")
+    @GetMapping("/list/{info-id}")
+    public StatusListResponse getStatusListByInfoIdAndStatus(
+            @PathVariable("info-id") Long infoId,
             @RequestParam("status") String status
     ) {
-        return statusService.getStatusListByFeedIdAndStatus(feedId, status);
+        return statusService.getStatusListByInfoIdAndStatus(infoId, status);
     }
 
-    @Operation(summary = "웹용 게시글 관련 문의, 수정 요청 상세 조회")
+    @Operation(summary = "웹용 정보 글 관련 문의, 수정 요청 상세 조회")
     @GetMapping("/detail/{status-id}")
     public StatusDetailResponse getStatusDetailById(
             @PathVariable("status-id") Long statusId

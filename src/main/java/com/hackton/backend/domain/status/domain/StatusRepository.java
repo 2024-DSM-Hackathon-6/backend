@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface StatusRepository extends CrudRepository<StatusEntity, Long> {
 
-    List<StatusEntity> findAllByFeedIdAndName(Long feedId, String name);
+    List<StatusEntity> findAllByInfoIdAndName(Long feedId, String name);
 
-    List<StatusEntity> findAllByFeedId(Long feedId);
+    List<StatusEntity> findAllByInfoId(Long feedId);
 
     List<StatusEntity> findAll();
 }

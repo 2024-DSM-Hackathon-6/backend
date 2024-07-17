@@ -1,4 +1,4 @@
-package com.hackton.backend.domain.feed.presentation.dto;
+package com.hackton.backend.domain.info.presentation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
-public class FeedFilter {
+public class InfoFilter {
     private String title;
     private String accountId;
     private LocalDate date;

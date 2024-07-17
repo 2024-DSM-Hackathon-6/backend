@@ -58,6 +58,7 @@ public class FeedEntity {
     }
 
     public void updateFeed(String title, String content) {
-
+        this.title = title;
+        this.content = content;
     }
 }

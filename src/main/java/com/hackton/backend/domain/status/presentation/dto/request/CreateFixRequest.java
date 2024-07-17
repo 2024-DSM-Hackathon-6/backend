@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CreateFixRequest {
-    private Long feedId;
+    private Long infoId;
     private String content;
 }

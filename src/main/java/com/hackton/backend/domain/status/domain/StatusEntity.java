@@ -1,6 +1,6 @@
 package com.hackton.backend.domain.status.domain;
 
-import com.hackton.backend.domain.feed.domain.FeedEntity;
+import com.hackton.backend.domain.info.domain.InfoEntity;
 import com.hackton.backend.domain.user.domain.UserEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class StatusEntity {
+    private final LocalDateTime createDate = LocalDateTime.now();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,21 +32,19 @@ public class StatusEntity {
     @Column(columnDefinition = "VARCHAR(3000)", nullable = false)
     private String content;
 
-    private final LocalDateTime createDate = LocalDateTime.now();
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "feed_id", nullable = false)
-    private FeedEntity feed;
+    @JoinColumn(name = "info_id", nullable = false)
+    private InfoEntity info;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @Builder
-    public StatusEntity(String name, String content, FeedEntity feed, UserEntity user) {
+    public StatusEntity(String name, String content, InfoEntity info, UserEntity user) {
         this.name = name;
         this.content = content;
-        this.feed = feed;
+        this.info = info;
         this.user = user;
     }
 }

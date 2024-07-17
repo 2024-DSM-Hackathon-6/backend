@@ -1,5 +1,6 @@
 package com.hackton.backend.domain.info.presentation;
 
+import com.hackton.backend.domain.info.presentation.dto.response.InfoStatusListResponse;
 import com.hackton.backend.domain.info.presentation.dto.response.WordDetailResponse;
 import com.hackton.backend.domain.info.presentation.dto.response.WordListResponse;
 import com.hackton.backend.domain.info.service.InfoService;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @RequestMapping("/infos")
@@ -37,5 +40,15 @@ public class InfoController {
     @GetMapping("/detail/{info-id}")
     public WordDetailResponse getWordDetailById(@PathVariable("info-id") Long infoId) {
         return infoService.getWordDetailById(infoId);
+    }
+
+    @Operation(summary = "웹 용 정보 리스트 조회")
+    @GetMapping("/web")
+    public InfoStatusListResponse getFeedListByFeedFilter(
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "accountId", required = false) String accountId,
+            @RequestParam(value = "date", required = false) LocalDate date
+    ) {
+        return infoService.getInfoListByInfoFilter(title, accountId, date);
     }
 }

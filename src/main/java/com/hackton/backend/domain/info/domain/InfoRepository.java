@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface InfoRepository extends CrudRepository<InfoEntity, Long> {
+public interface InfoRepository extends CrudRepository<InfoEntity, Long>, CustomInfoRepository {
 
     List<InfoEntity> findAllByCategoryName(String categoryName);
 }
