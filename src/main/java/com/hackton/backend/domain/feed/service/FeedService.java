@@ -55,12 +55,24 @@ public class FeedService {
         );
     }
 
-    public void deleteFeed() {
+    public void deleteFeed(Long feedId, String userIdentifier) {
+        UserEntity user = userRepository.findByIdentifier(userIdentifier)
+                .orElseThrow(() -> new RuntimeException(""));
+        FeedEntity feed = feedRepository.findById((feedId))
+                .orElseThrow(RuntimeException::new);
+        feedRepository.delete(feed);
+
+
 
     }
 
-    public void modifyFeed() {
-
+    public void modifyFeed(Long feedId, String userIdentifier) {
+        UserEntity user = userRepository.findByIdentifier(userIdentifier)
+                .orElseThrow(() -> new RuntimeException(""));
+        FeedEntity feed = feedRepository.findById((feedId))
+                .orElseThrow(RuntimeException::new);
+        feedRepository.delete(feed);
+        feedRepository.save(feed);
     }
 
     public FeedListResponse getFeedListBySort(String sort, String userIdentifier) {

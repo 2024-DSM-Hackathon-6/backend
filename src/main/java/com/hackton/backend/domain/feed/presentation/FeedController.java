@@ -41,12 +41,20 @@ public class FeedController {
         feedService.createFeed(request, identifier);
     }
 
-    @DeleteMapping
-    public void deleteFeed() {
+    @DeleteMapping("/delete/{feed-id}")
+    public void deleteFeed(
+            @PathVariable(name = "feed-id") Long feedId,
+            @RequestHeader("X-identifier") String identifier
+    ) {
+        feedService.deleteFeed(feedId, identifier);
     }
 
     @PatchMapping
-    public void modifyFeed() {
+    public void modifyFeed(
+            @PathVariable(name = "feed-id") Long feedId,
+            @RequestHeader("X-identifier") String identifier
+    ) {
+        feedService.modifyFeed(feedId, identifier);
     }
 
     @GetMapping("/app")
