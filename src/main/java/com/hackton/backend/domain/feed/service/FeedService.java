@@ -1,6 +1,7 @@
 package com.hackton.backend.domain.feed.service;
 
 import com.hackton.backend.domain.feed.domain.FeedEntity;
+import com.hackton.backend.domain.feed.domain.FeedLikeRepository;
 import com.hackton.backend.domain.feed.domain.FeedRepository;
 import com.hackton.backend.domain.feed.presentation.dto.FeedFilter;
 import com.hackton.backend.domain.feed.presentation.dto.request.CreateFeedRequest;
@@ -27,6 +28,7 @@ import java.util.List;
 public class FeedService {
 
     private final FeedRepository feedRepository;
+    private final FeedLikeRepository feedLikeRepository;
     private final UserRepository userRepository;
     private final StatusRepository statusRepository;
 
@@ -44,6 +46,7 @@ public class FeedService {
                 .userName(feed.getUser().getAccountId())
                 .likeCount(feed.getLikeCount())
                 .isMine(feed.getUser().getAccountId().equals(user.getAccountId()))
+                .isLiked(feedLikeRepository.existsByFeedAndUser(feed, user))
                 .build();
     }
 
@@ -113,6 +116,7 @@ public class FeedService {
                                 .userName(feed.getUser().getAccountId())
                                 .likeCount(feed.getLikeCount())
                                 .isMine(feed.getUser().getAccountId().equals(user.getAccountId()))
+                                .isLiked(feedLikeRepository.existsByFeedAndUser(feed, user))
                                 .build())
                 .toList();
 

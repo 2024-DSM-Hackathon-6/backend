@@ -15,4 +15,5 @@ public class FeedDetailResponse {
     private final String userName;
     private final Integer likeCount;
     private final Boolean isMine;
+    private final Boolean isLiked;
 }
