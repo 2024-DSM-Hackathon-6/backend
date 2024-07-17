@@ -2,8 +2,8 @@ package com.hackton.backend.domain.feed.service;
 
 import com.hackton.backend.domain.feed.domain.FeedEntity;
 import com.hackton.backend.domain.feed.domain.FeedRepository;
-import com.hackton.backend.domain.feed.presentation.dto.FeedFilter;
 import com.hackton.backend.domain.feed.presentation.dto.request.CreateFeedRequest;
+import com.hackton.backend.domain.feed.presentation.dto.request.UpdateFeedRequest;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedDetailResponse;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedElement;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedListResponse;
@@ -11,8 +11,8 @@ import com.hackton.backend.domain.user.domain.UserEntity;
 import com.hackton.backend.domain.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -58,21 +58,33 @@ public class FeedService {
     public void deleteFeed(Long feedId, String userIdentifier) {
         UserEntity user = userRepository.findByIdentifier(userIdentifier)
                 .orElseThrow(() -> new RuntimeException(""));
+
         FeedEntity feed = feedRepository.findById((feedId))
                 .orElseThrow(RuntimeException::new);
+
+        if (!feed.getUser().getAccountId().equals(user.getAccountId())) {
+            throw new RuntimeException();
+        }
+
         feedRepository.delete(feed);
-
-
-
     }
 
-    public void modifyFeed(Long feedId, String userIdentifier) {
+    @Transactional
+    public void modifyFeed(Long feedId, UpdateFeedRequest request, String userIdentifier) {
         UserEntity user = userRepository.findByIdentifier(userIdentifier)
                 .orElseThrow(() -> new RuntimeException(""));
+
         FeedEntity feed = feedRepository.findById((feedId))
                 .orElseThrow(RuntimeException::new);
-        feedRepository.delete(feed);
-        feedRepository.save(feed);
+
+        if (!feed.getUser().getAccountId().equals(user.getAccountId())) {
+            throw new RuntimeException();
+        }
+
+        feed.updateFeed(
+                request.getTitle(),
+                request.getContent()
+        );
     }
 
     public FeedListResponse getFeedListBySort(String sort, String userIdentifier) {

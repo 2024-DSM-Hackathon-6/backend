@@ -56,4 +56,8 @@ public class FeedEntity {
     public void minusCount() {
         this.likeCount -= 1;
     }
+
+    public void updateFeed(String title, String content) {
+
+    }
 }

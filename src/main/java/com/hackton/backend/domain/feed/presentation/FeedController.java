@@ -1,6 +1,7 @@
 package com.hackton.backend.domain.feed.presentation;
 
 import com.hackton.backend.domain.feed.presentation.dto.request.CreateFeedRequest;
+import com.hackton.backend.domain.feed.presentation.dto.request.UpdateFeedRequest;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedDetailResponse;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedListResponse;
 import com.hackton.backend.domain.feed.service.FeedService;
@@ -41,7 +42,7 @@ public class FeedController {
         feedService.createFeed(request, identifier);
     }
 
-    @DeleteMapping("/delete/{feed-id}")
+    @DeleteMapping("/{feed-id}")
     public void deleteFeed(
             @PathVariable(name = "feed-id") Long feedId,
             @RequestHeader("X-identifier") String identifier
@@ -49,12 +50,13 @@ public class FeedController {
         feedService.deleteFeed(feedId, identifier);
     }
 
-    @PatchMapping
+    @PatchMapping("/{feed-id}")
     public void modifyFeed(
             @PathVariable(name = "feed-id") Long feedId,
+            @RequestBody UpdateFeedRequest request,
             @RequestHeader("X-identifier") String identifier
     ) {
-        feedService.modifyFeed(feedId, identifier);
+        feedService.modifyFeed(feedId, request, identifier);
     }
 
     @GetMapping("/app")
