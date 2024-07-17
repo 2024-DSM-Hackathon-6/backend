@@ -47,7 +47,7 @@ public class CustomFeedRepositoryImpl implements CustomFeedRepository {
     }
 
     private BooleanExpression containsTitle(String title) {
-        return title == null ? null : feedEntity.title.like(title);
+        return title == null ? null : feedEntity.title.contains(title);
     }
 
     private BooleanExpression eqUserName(String accountId) {
