@@ -112,6 +112,26 @@ public class FeedService {
         return new FeedListResponse(feedElements);
     }
 
+    public FeedListResponse getFeedListByTitle(String title, String userIdentifier) {
+        UserEntity user = userRepository.findByIdentifier(userIdentifier)
+                .orElseThrow(RuntimeException::new);
+
+        List<FeedElement> feedElements = feedRepository.findAllByTitleContainsOrderByCreateDateDesc(title)
+                .stream()
+                .map(feed ->
+                        FeedElement.builder()
+                                .id(feed.getId())
+                                .title(feed.getTitle())
+                                .content(feed.getContent())
+                                .userName(feed.getUser().getAccountId())
+                                .likeCount(feed.getLikeCount())
+                                .isMine(feed.getUser().getAccountId().equals(user.getAccountId()))
+                                .build())
+                .toList();
+
+        return new FeedListResponse(feedElements);
+    }
+
     /*public FeedListResponse getFeedListByFeedFilter(
             String title,
             String accountId,

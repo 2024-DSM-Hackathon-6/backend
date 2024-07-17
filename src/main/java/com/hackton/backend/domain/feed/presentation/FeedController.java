@@ -69,6 +69,15 @@ public class FeedController {
         return feedService.getFeedListBySort(sort, identifier);
     }
 
+    @Operation(summary = "웹 용 제목 검색으로 게시글 조회")
+    @GetMapping("/search")
+    public FeedListResponse getFeedListByTitle(
+            @RequestParam("title") String title,
+            @RequestHeader("X-identifier") String identifier
+    ) {
+        return feedService.getFeedListByTitle(title, identifier);
+    }
+
     @Operation(summary = "웹 용 게시글 리스트 조회")
     @GetMapping("/web")
     public void getFeedListByFeedFilter(
