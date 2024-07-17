@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.hackton.backend.domain.feed.domain.QFeedEntity.feedEntity;
 import static com.hackton.backend.domain.info.domain.QInfoEntity.infoEntity;
 
 @RequiredArgsConstructor
@@ -32,7 +31,7 @@ public class CustomInfoRepositoryImpl implements CustomInfoRepository {
     // dynamic query conditions
 
     private BooleanExpression containsTitle(String title) {
-        return title == null ? null : feedEntity.title.like(title);
+        return title == null ? null : infoEntity.title.like(title);
     }
 
     private BooleanExpression eqDate(LocalDate date) {
@@ -40,8 +39,8 @@ public class CustomInfoRepositoryImpl implements CustomInfoRepository {
             return null;
         }
 
-        return feedEntity.createDate.year().eq(date.getYear())
-                .and(feedEntity.createDate.month().eq(date.getMonthValue()))
-                .and(feedEntity.createDate.dayOfMonth().eq(date.getDayOfMonth()));
+        return infoEntity.createDate.year().eq(date.getYear())
+                .and(infoEntity.createDate.month().eq(date.getMonthValue()))
+                .and(infoEntity.createDate.dayOfMonth().eq(date.getDayOfMonth()));
     }
 }
