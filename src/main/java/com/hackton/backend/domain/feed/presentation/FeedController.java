@@ -4,6 +4,7 @@ import com.hackton.backend.domain.feed.presentation.dto.request.CreateFeedReques
 import com.hackton.backend.domain.feed.presentation.dto.request.UpdateFeedRequest;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedDetailResponse;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedListResponse;
+import com.hackton.backend.domain.feed.presentation.dto.response.FeedStatusListResponse;
 import com.hackton.backend.domain.feed.service.FeedService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -80,13 +81,11 @@ public class FeedController {
 
     @Operation(summary = "웹 용 게시글 리스트 조회")
     @GetMapping("/web")
-    public void getFeedListByFeedFilter(
+    public FeedStatusListResponse getFeedListByFeedFilter(
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "accountId", required = false) String accountId,
-            @RequestParam(value = "date", required = false) LocalDate date,
-            @RequestParam(value = "status", required = false) String status,
-            @RequestHeader("X-identifier") String identifier
+            @RequestParam(value = "date", required = false) LocalDate date
     ) {
-//        return feedService.getFeedListByFeedFilter(title, accountId, date, status, identifier);
+        return feedService.getFeedListByFeedFilter(title, accountId, date);
     }
 }
