@@ -31,7 +31,7 @@ public class CustomInfoRepositoryImpl implements CustomInfoRepository {
     // dynamic query conditions
 
     private BooleanExpression containsTitle(String title) {
-        return title == null ? null : infoEntity.title.like(title);
+        return title == null ? null : infoEntity.title.contains(title);
     }
 
     private BooleanExpression eqDate(LocalDate date) {
