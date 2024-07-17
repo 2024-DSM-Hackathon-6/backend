@@ -5,6 +5,7 @@ import com.hackton.backend.domain.feed.presentation.dto.request.UpdateFeedReques
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedDetailResponse;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedListResponse;
 import com.hackton.backend.domain.feed.service.FeedService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +60,7 @@ public class FeedController {
         feedService.modifyFeed(feedId, request, identifier);
     }
 
+    @Operation(summary = "앱 용 게시글 리스트 조회", description = "DATE(최신순), POPULAR(인기순)")
     @GetMapping("/app")
     public FeedListResponse getFeedListBySort(
             @RequestParam("sort") String sort,
@@ -67,6 +69,7 @@ public class FeedController {
         return feedService.getFeedListBySort(sort, identifier);
     }
 
+    @Operation(summary = "웹 용 게시글 리스트 조회")
     @GetMapping("/web")
     public void getFeedListByFeedFilter(
             @RequestParam(value = "title", required = false) String title,

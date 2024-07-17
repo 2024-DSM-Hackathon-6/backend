@@ -33,11 +33,15 @@ public class ExcelService {
                     continue;
                 }
 
+                if (row.getRowNum() == 200) {
+                    break;
+                }
+
                 infoEntities.add(
                         InfoEntity.builder()
                                 .title(row.getCell(2).toString())
                                 .content(row.getCell(3).toString())
-                                .categoryName(row.getCell(1).toString())
+                                .categoryName(row.getCell(1).toString().equals("경제") ? "금융" : row.getCell(1).toString())
                                 .infoCategory(InfoCategoryEntity.getDefaultCategory())
                                 .build()
                 );

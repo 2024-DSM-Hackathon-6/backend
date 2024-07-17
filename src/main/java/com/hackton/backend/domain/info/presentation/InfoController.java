@@ -4,6 +4,7 @@ import com.hackton.backend.domain.info.presentation.dto.response.WordDetailRespo
 import com.hackton.backend.domain.info.presentation.dto.response.WordListResponse;
 import com.hackton.backend.domain.info.service.InfoService;
 import com.hackton.backend.infra.excel.ExcelService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,16 +21,19 @@ public class InfoController {
     private final ExcelService excelService;
     private final InfoService infoService;
 
+    @Operation(summary = "엑셀 저장(호출하지 않아도 됨)")
     @PostMapping("/save")
     public void excelParsing() {
         excelService.excelParsing();
     }
 
+    @Operation(summary = "용어 사전 리스트 조회(카테고리 이름으로 필터링 { 경제, 사회, 금융, 공공 })")
     @GetMapping
     public WordListResponse getWordsByCategoryName(@RequestParam("name") String categoryName) {
         return infoService.getWordsByCategoryName(categoryName);
     }
 
+    @Operation(summary = "용어 사전 상세 조회")
     @GetMapping("/detail/{info-id}")
     public WordDetailResponse getWordDetailById(@PathVariable("info-id") Long infoId) {
         return infoService.getWordDetailById(infoId);
