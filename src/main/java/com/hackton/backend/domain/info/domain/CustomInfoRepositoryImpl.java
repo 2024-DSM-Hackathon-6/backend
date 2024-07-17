@@ -11,7 +11,6 @@ import java.util.List;
 
 import static com.hackton.backend.domain.feed.domain.QFeedEntity.feedEntity;
 import static com.hackton.backend.domain.info.domain.QInfoEntity.infoEntity;
-import static com.hackton.backend.domain.user.domain.QUserEntity.userEntity;
 
 @RequiredArgsConstructor
 @Component
@@ -25,7 +24,6 @@ public class CustomInfoRepositoryImpl implements CustomInfoRepository {
                 .selectFrom(infoEntity)
                 .where(
                         containsTitle(infoFilter.getTitle()),
-                        eqUserName(infoFilter.getAccountId()),
                         eqDate(infoFilter.getDate())
                 )
                 .fetch();
@@ -35,10 +33,6 @@ public class CustomInfoRepositoryImpl implements CustomInfoRepository {
 
     private BooleanExpression containsTitle(String title) {
         return title == null ? null : feedEntity.title.like(title);
-    }
-
-    private BooleanExpression eqUserName(String accountId) {
-        return accountId == null ? null : userEntity.accountId.eq(accountId);
     }
 
     private BooleanExpression eqDate(LocalDate date) {

@@ -46,9 +46,8 @@ public class InfoController {
     @GetMapping("/web")
     public InfoStatusListResponse getFeedListByFeedFilter(
             @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "accountId", required = false) String accountId,
             @RequestParam(value = "date", required = false) LocalDate date
     ) {
-        return infoService.getInfoListByInfoFilter(title, accountId, date);
+        return infoService.getInfoListByInfoFilter(title, date);
     }
 }

@@ -8,13 +8,13 @@ import com.hackton.backend.domain.feed.presentation.dto.request.UpdateFeedReques
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedDetailResponse;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedElement;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedListResponse;
-import com.hackton.backend.domain.status.domain.StatusRepository;
 import com.hackton.backend.domain.user.domain.UserEntity;
 import com.hackton.backend.domain.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -117,11 +117,11 @@ public class FeedService {
         return new FeedListResponse(feedElements);
     }
 
-    public FeedListResponse getFeedListByTitle(String title, String userIdentifier) {
+    public FeedListResponse getFeedListByTitle(String title, String accountId, LocalDate date, String userIdentifier) {
         UserEntity user = userRepository.findByIdentifier(userIdentifier)
                 .orElseThrow(RuntimeException::new);
 
-        List<FeedElement> feedElements = feedRepository.findAllByTitleContainsOrderByCreateDateDesc(title)
+        List<FeedElement> feedElements = feedRepository.findAllByTitle(title, accountId, date)
                 .stream()
                 .map(feed ->
                         FeedElement.builder()

@@ -1,5 +1,6 @@
 package com.hackton.backend.domain.feed.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface CustomFeedRepository {
@@ -8,5 +9,5 @@ public interface CustomFeedRepository {
 
     List<FeedEntity> findAllOrderByLikeCount();
 
-    List<FeedEntity> findAllByTitleContainsOrderByCreateDateDesc(String title);
+    List<FeedEntity> findAllByTitle(String title, String accountId, LocalDate date);
 }

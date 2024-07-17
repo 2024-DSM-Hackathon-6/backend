@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+
 @RequiredArgsConstructor
 @RequestMapping("/feeds")
 @RestController
@@ -70,9 +72,11 @@ public class FeedController {
     @Operation(summary = "웹 용 제목 검색으로 게시글 조회")
     @GetMapping("/search")
     public FeedListResponse getFeedListByTitle(
-            @RequestParam("title") String title,
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "accountId", required = false) String accountId,
+            @RequestParam(value = "date", required = false) LocalDate date,
             @RequestHeader("X-identifier") String identifier
     ) {
-        return feedService.getFeedListByTitle(title, identifier);
+        return feedService.getFeedListByTitle(title, accountId, date, identifier);
     }
 }

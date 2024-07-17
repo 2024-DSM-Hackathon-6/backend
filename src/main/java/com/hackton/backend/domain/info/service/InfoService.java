@@ -50,10 +50,9 @@ public class InfoService {
 
     public InfoStatusListResponse getInfoListByInfoFilter(
             String title,
-            String accountId,
             LocalDate date
     ) {
-        InfoFilter infoFilter = new InfoFilter(title, accountId, date);
+        InfoFilter infoFilter = new InfoFilter(title, date);
         List<StatusEntity> statusEntities = statusRepository.findAll();
 
         List<InfoStatusElement> infoElements = infoRepository.findAllByInfoFilter(infoFilter)

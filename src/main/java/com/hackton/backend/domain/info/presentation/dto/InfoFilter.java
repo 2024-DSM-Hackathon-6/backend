@@ -9,6 +9,5 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class InfoFilter {
     private String title;
-    private String accountId;
     private LocalDate date;
 }
