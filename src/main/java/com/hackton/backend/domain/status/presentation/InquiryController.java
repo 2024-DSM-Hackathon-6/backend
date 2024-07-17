@@ -1,7 +1,7 @@
-package com.hackton.backend.domain.Inquiry.presentation;
+package com.hackton.backend.domain.status.presentation;
 
-import com.hackton.backend.domain.Inquiry.presentation.dto.request.CreateInquiryRequest;
-import com.hackton.backend.domain.Inquiry.service.InquiryService;
+import com.hackton.backend.domain.status.presentation.dto.request.CreateInquiryRequest;
+import com.hackton.backend.domain.status.service.InquiryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

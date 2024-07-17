@@ -1,4 +1,4 @@
-package com.hackton.backend.domain.Inquiry.presentation.dto.request;
+package com.hackton.backend.domain.status.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

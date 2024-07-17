@@ -1,8 +1,8 @@
-package com.hackton.backend.domain.Inquiry.service;
+package com.hackton.backend.domain.status.service;
 
-import com.hackton.backend.domain.Inquiry.domain.InquiryEntity;
-import com.hackton.backend.domain.Inquiry.domain.InquiryRepository;
-import com.hackton.backend.domain.Inquiry.presentation.dto.request.CreateInquiryRequest;
+import com.hackton.backend.domain.status.domain.StatusEntity;
+import com.hackton.backend.domain.status.domain.StatusRepository;
+import com.hackton.backend.domain.status.presentation.dto.request.CreateInquiryRequest;
 import com.hackton.backend.domain.feed.domain.FeedEntity;
 import com.hackton.backend.domain.feed.domain.FeedRepository;
 import com.hackton.backend.domain.user.domain.UserEntity;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class InquiryService {
 
-    private final InquiryRepository inquiryRepository;
+    private final StatusRepository statusRepository;
     private final FeedRepository feedRepository;
     private final UserRepository userRepository;
 
@@ -25,8 +25,8 @@ public class InquiryService {
         UserEntity user = userRepository.findByIdentifier(userIdentifier)
                 .orElseThrow(RuntimeException::new);
 
-        inquiryRepository.save(
-                InquiryEntity.builder()
+        statusRepository.save(
+                StatusEntity.builder()
                         .feed(feed)
                         .user(user)
                         .content(request.getContent())
