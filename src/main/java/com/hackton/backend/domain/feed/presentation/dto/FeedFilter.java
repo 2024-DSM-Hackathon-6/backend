@@ -11,5 +11,4 @@ public class FeedFilter {
     private String title;
     private String accountId;
     private LocalDate date;
-    private String status;
 }

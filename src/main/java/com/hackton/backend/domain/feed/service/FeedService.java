@@ -2,17 +2,23 @@ package com.hackton.backend.domain.feed.service;
 
 import com.hackton.backend.domain.feed.domain.FeedEntity;
 import com.hackton.backend.domain.feed.domain.FeedRepository;
+import com.hackton.backend.domain.feed.presentation.dto.FeedFilter;
 import com.hackton.backend.domain.feed.presentation.dto.request.CreateFeedRequest;
 import com.hackton.backend.domain.feed.presentation.dto.request.UpdateFeedRequest;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedDetailResponse;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedElement;
 import com.hackton.backend.domain.feed.presentation.dto.response.FeedListResponse;
+import com.hackton.backend.domain.feed.presentation.dto.response.FeedStatusElement;
+import com.hackton.backend.domain.feed.presentation.dto.response.FeedStatusListResponse;
+import com.hackton.backend.domain.status.domain.StatusEntity;
+import com.hackton.backend.domain.status.domain.StatusRepository;
 import com.hackton.backend.domain.user.domain.UserEntity;
 import com.hackton.backend.domain.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,6 +28,7 @@ public class FeedService {
 
     private final FeedRepository feedRepository;
     private final UserRepository userRepository;
+    private final StatusRepository statusRepository;
 
     public FeedDetailResponse getFeedDetailById(Long feedId, String userIdentifier) {
         UserEntity user = userRepository.findByIdentifier(userIdentifier)
@@ -132,14 +139,34 @@ public class FeedService {
         return new FeedListResponse(feedElements);
     }
 
-    /*public FeedListResponse getFeedListByFeedFilter(
+    public FeedStatusListResponse getFeedListByFeedFilter(
             String title,
             String accountId,
-            LocalDate date,
-            String status,
-            String userIdentifier
+            LocalDate date
     ) {
-        FeedFilter feedFilter = new FeedFilter(title, accountId, date, status);
+        FeedFilter feedFilter = new FeedFilter(title, accountId, date);
+        List<StatusEntity> statusEntities = statusRepository.findAll();
 
-    }*/
+        List<FeedStatusElement> feedElements = feedRepository.findAllByFeedFilter(feedFilter)
+                .stream()
+                .map(f -> {
+                    List<String> statusList = statusEntities.stream()
+                            .filter(st -> st.getFeed().getId().equals(f.getId()))
+                            .map(StatusEntity::getName)
+                            .toList();
+
+                    return FeedStatusElement.builder()
+                            .id(f.getId())
+                            .title(f.getTitle())
+                            .content(f.getContent())
+                            .createDate(f.getCreateDate().toLocalDate())
+                            .userName(f.getUser().getAccountId())
+                            .likeCount(f.getLikeCount())
+                            .statusName(statusList)
+                            .build();
+                })
+                .toList();
+
+        return new FeedStatusListResponse(feedElements);
+    }
 }

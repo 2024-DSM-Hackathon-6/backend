@@ -9,4 +9,6 @@ public interface StatusRepository extends CrudRepository<StatusEntity, Long> {
     List<StatusEntity> findAllByFeedIdAndName(Long feedId, String name);
 
     List<StatusEntity> findAllByFeedId(Long feedId);
+
+    List<StatusEntity> findAll();
 }
