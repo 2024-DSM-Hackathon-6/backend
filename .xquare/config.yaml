@@ -1,0 +1,5 @@
+config:
+  name: hackton-jeong
+  prefix: "/jeong"
+  service_type: be
+  port: 8080
