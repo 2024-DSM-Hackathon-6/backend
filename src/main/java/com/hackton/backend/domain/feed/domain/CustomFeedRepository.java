@@ -11,4 +11,6 @@ public interface CustomFeedRepository {
     List<FeedEntity> findAllOrderByLikeCount();
 
     List<FeedEntity> findAllByFeedFilter(FeedFilter feedFilter);
+
+    List<FeedEntity> findAllByTitleContainsOrderByCreateDateDesc(String title);
 }

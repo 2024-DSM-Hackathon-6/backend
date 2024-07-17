@@ -48,6 +48,17 @@ public class CustomFeedRepositoryImpl implements CustomFeedRepository {
                 .fetch();
     }
 
+    @Override
+    public List<FeedEntity> findAllByTitleContainsOrderByCreateDateDesc(String title) {
+        return queryFactory
+                .selectFrom(feedEntity)
+                .where(
+                        containsTitle(title)
+                )
+                .orderBy(feedEntity.createDate.desc())
+                .fetch();
+    }
+
     // dynamic query conditions
 
     private BooleanExpression containsTitle(String title) {
