@@ -88,7 +88,7 @@ public class FeedService {
         return new FeedListResponse(feedElements);
     }
 
-    public FeedListResponse getFeedListByFeedFilter(
+    /*public FeedListResponse getFeedListByFeedFilter(
             String title,
             String accountId,
             LocalDate date,
@@ -97,5 +97,5 @@ public class FeedService {
     ) {
         FeedFilter feedFilter = new FeedFilter(title, accountId, date, status);
 
-    }
+    }*/
 }
