@@ -74,4 +74,11 @@ public class InfoService {
 
         return new InfoStatusListResponse(infoElements);
     }
+
+    public void deleteInfo(Long infoId) {
+        InfoEntity info = infoRepository.findById(infoId)
+                .orElseThrow(RuntimeException::new);
+
+        infoRepository.delete(info);
+    }
 }

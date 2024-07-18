@@ -7,6 +7,7 @@ import com.hackton.backend.domain.status.presentation.dto.response.StatusListRes
 import com.hackton.backend.domain.status.service.StatusService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,5 +51,13 @@ public class StatusController {
             @PathVariable("status-id") Long statusId
     ) {
         return statusService.getStatusDetailById(statusId);
+    }
+
+    @Operation(summary = "상태 삭제")
+    @DeleteMapping("/{status-id}")
+    public void deleteInfo(
+            @PathVariable("status-id") Long statusId
+    ) {
+        statusService.deleteStatus(statusId);
     }
 }

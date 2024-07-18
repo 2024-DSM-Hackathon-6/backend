@@ -7,6 +7,7 @@ import com.hackton.backend.domain.info.service.InfoService;
 import com.hackton.backend.infra.excel.ExcelService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,5 +50,13 @@ public class InfoController {
             @RequestParam(value = "date", required = false) LocalDate date
     ) {
         return infoService.getInfoListByInfoFilter(title, date);
+    }
+
+    @Operation(summary = "정보 글 삭제")
+    @DeleteMapping("/{info-id}")
+    public void deleteInfo(
+            @PathVariable("info-id") Long infoId
+    ) {
+        infoService.deleteInfo(infoId);
     }
 }

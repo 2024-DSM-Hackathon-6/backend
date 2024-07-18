@@ -1,6 +1,7 @@
 package com.hackton.backend.domain.feed.service;
 
 import com.hackton.backend.domain.feed.domain.FeedEntity;
+import com.hackton.backend.domain.feed.domain.FeedLikeEntity;
 import com.hackton.backend.domain.feed.domain.FeedLikeRepository;
 import com.hackton.backend.domain.feed.domain.FeedRepository;
 import com.hackton.backend.domain.feed.presentation.dto.request.CreateFeedRequest;
@@ -70,6 +71,10 @@ public class FeedService {
             throw new RuntimeException();
         }
 
+        List<Long> deleteFeedLikeIds = feedLikeRepository.findAllByFeedId(feed.getId())
+                .stream().map(FeedLikeEntity::getId).toList();
+
+        feedLikeRepository.deleteAllById(deleteFeedLikeIds);
         feedRepository.delete(feed);
     }
 

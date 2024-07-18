@@ -87,4 +87,11 @@ public class StatusService {
                 status.getContent()
         );
     }
+
+    public void deleteStatus(Long statusId) {
+        StatusEntity status = statusRepository.findById(statusId)
+                .orElseThrow(RuntimeException::new);
+
+        statusRepository.delete(status);
+    }
 }
