@@ -3,6 +3,7 @@ package com.hackton.backend.domain.info.service;
 import com.hackton.backend.domain.info.domain.InfoEntity;
 import com.hackton.backend.domain.info.domain.InfoRepository;
 import com.hackton.backend.domain.info.presentation.dto.InfoFilter;
+import com.hackton.backend.domain.info.presentation.dto.request.UpdateInfoRequest;
 import com.hackton.backend.domain.info.presentation.dto.response.InfoStatusElement;
 import com.hackton.backend.domain.info.presentation.dto.response.InfoStatusListResponse;
 import com.hackton.backend.domain.info.presentation.dto.response.WordDetailResponse;
@@ -12,6 +13,7 @@ import com.hackton.backend.domain.status.domain.StatusEntity;
 import com.hackton.backend.domain.status.domain.StatusRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -80,5 +82,16 @@ public class InfoService {
                 .orElseThrow(RuntimeException::new);
 
         infoRepository.delete(info);
+    }
+
+    @Transactional
+    public void updateInfo(Long infoId, UpdateInfoRequest request) {
+        InfoEntity info = infoRepository.findById(infoId)
+                .orElseThrow(RuntimeException::new);
+
+        info.updateInfo(
+                request.getTitle(),
+                request.getContent()
+        );
     }
 }

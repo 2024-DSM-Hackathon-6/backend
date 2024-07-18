@@ -45,4 +45,9 @@ public class InfoEntity {
         this.categoryName = categoryName;
         this.infoCategory = infoCategory;
     }
+
+    public void updateInfo(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
